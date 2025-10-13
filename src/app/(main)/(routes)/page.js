@@ -18,16 +18,19 @@ export default function Home() {
   return (
       <div className="aboslute z-20">
     <div className="font-sans  items-center justify-items-center min-h-screen p-8 pb-20  sm:py-20 relative">
-
+      <div className="flex flex-row items-center  gap-1 mb-10">
+<div onClick={handleLogout} className=" bg-[#133D74] p-3 shadow rounded">
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
+        </div>
+<h2 className="text-[#133D74] font-bold text-xl w-full text-center">Centro Comercial Abierto de Ceuta</h2>
+      </div>
       <BoxCampaing src={"/Image.png"}/>
       <MainMenuBar images={[
-        {src: "/Vector(1).svg", alt: "Error", foot: "Tarjeta"},
+        {src: "/Vector(4).svg", alt: "Error", foot: "Contacto"},
         {src: "/bi_qr-code-scan.svg", alt: "Error", foot: "Registrar"},
         {src: "/Vector(3).svg", alt: "Error", foot: "Comercios",},
         ]}/>
-      <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-        Logout
-      </button>
+     
       </div>
 
     </div>
