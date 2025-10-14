@@ -4,6 +4,9 @@ import React from 'react'
 
 export default function MainMenuBar(props) {
     const {images} = props
+
+
+    
   return (
     <div 
   className="flex justify-between items-center w-full  h-[90px] bg-white rounded-xl border border-[#133D74] p-[20px] px-9 shadow-lg s my-5 mx-autoz-10"
