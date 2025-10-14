@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function MainMenuBar(props) {
@@ -11,6 +12,8 @@ export default function MainMenuBar(props) {
   {images.map((img, index) => (
     <div key={index} className="flex flex-col items-center justify-center flex-1">
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+      <Link href={img.route ? img.route : "#"} >
+      
       <Image
       width={40}
       height={40}
@@ -18,10 +21,11 @@ export default function MainMenuBar(props) {
         src={img.src}
         alt={img.alt}
         className="w-10 h-10 object-contain"
-        /* .image: w-10 (40px), h-10 (40px) */
+        
        
         style={{ cursor: img.onClick ? "pointer" : "default" }}
       />
+      </Link>
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
         /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */

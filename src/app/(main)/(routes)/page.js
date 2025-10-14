@@ -26,9 +26,9 @@ export default function Home() {
       </div>
       <BoxCampaing src={"/Image.png"}/>
       <MainMenuBar images={[
-        {src: "/Vector(4).svg", alt: "Error", foot: "Contacto"},
+        {src: "/Vector(4).svg", alt: "Error", foot: "Contacto", route: "/contacto"},
         {src: "/bi_qr-code-scan.svg", alt: "Error", foot: "Registrar"},
-        {src: "/Vector(3).svg", alt: "Error", foot: "Comercios",},
+        {src: "/Vector(3).svg", alt: "Error", foot: "Comercios", route: "/businesses"},
         ]}/>
      
       </div>
