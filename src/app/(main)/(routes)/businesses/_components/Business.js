@@ -6,8 +6,6 @@ import React from 'react'
 
 export default function Business(props) {
   const { business } = props;
-  console.log(business);
-  
   return (
     <div 
   className="relative w-full bg-white my-5 border-t-4 border-b-4 border-[#133D74] border-x-0 flex flex-col items-center overflow-hidden rounded-lg transition duration-200 ease-in-out hover:-translate-y-0.5"
@@ -64,7 +62,7 @@ export default function Business(props) {
       </span>
     </div>
     
-      <div className="flex flex-row gap-2.5">
+      <div className="flex flex-row gap-2.5 mb-5">
         {business.rrss_url &&
           business.rrss_url.split(' | ').map((url, index) => (
             <Link key={index} href={url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2.5 items-center">
