@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 
 
 export default function Business(props) {
   const { business } = props;
+  console.log(business);
   
   return (
     <div 
@@ -15,9 +17,9 @@ export default function Business(props) {
   {/* Imagen: contenedor con altura fija */}
   <div className="relative w-full h-[150px] bg-white/0">
     <Image 
-      src={business.img} 
+      src={`/comercios/${business.imagen}`} 
       fill
-      alt={business.name || "Imagen comercio"} 
+      alt={business.nombre || "Imagen comercio"} 
       className="object-cover w-full h-full"
     />
   </div>
@@ -25,12 +27,12 @@ export default function Business(props) {
 
   <div className="text-center bg-white py-1.5 px-2.5 text-[#133D74] text-sm font-bold">
     {/* .titleBusiness: text-center, py-1.5 (6px), px-2.5 (10px), color custom, text-sm (small) */}
-    {business.name}
+    {business.nombre}
   </div>
 
   <div className="text-center py-1.5 px-2.5 text-[#133D74] text-xs">
     {/* .textBusiness: text-center, py-1.5 (6px), px-2.5 (10px), color custom, text-xs (x-small) */}
-    {business.description}
+    {business.descripcion}
   </div>
 
   <div className="flex flex-col pt-1.5 pl-[30px] gap-1.5 self-start">
@@ -42,30 +44,38 @@ export default function Business(props) {
       {/* .linesTable img: w-5 (20px), h-5 (20px) */}
       <span className="text-[#133D74] text-xs font-bold">
         {/* .linesTable span: color custom, text-xs (x-small), font-bold */}
-      {  business.phone }
+      {  business.telefono }
       </span>
     </div>
     
     <div className="flex flex-row gap-2.5">
       <img src={'Vector(6).svg'} className="w-5 h-5"/>
+      <Link href={business.maps_url} target="_blank" rel="noopener noreferrer">
       <span className="text-[#133D74] text-xs font-bold">
-        { business.address }
+        { business.direccion }
       </span>
+      </Link>
     </div>
     
     <div className="flex flex-row gap-2.5">
       <img src={'fluent-mdl2_website(1).svg'} className="w-5 h-5"/>
       <span className="text-[#133D74] text-xs font-bold">
-        { business.website }
+        { business.web_url }
       </span>
     </div>
     
-    <div className="flex flex-row gap-2.5">
-      <img src={'Calendar_Week.svg'} className="w-5 h-5"/>
-      <span className="text-[#133D74] text-xs font-bold">
-        { business.hours }
-      </span>
-    </div>
+      <div className="flex flex-row gap-2.5">
+        {business.rrss_url &&
+          business.rrss_url.split(' | ').map((url, index) => (
+            <Link key={index} href={url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2.5 items-center">
+              {url.includes('facebook') ? (
+                <img src={'/facebook.svg'} className="w-5 h-5"/>
+              ) : url.includes('instagram') ? (
+                <img src={'/instagram.svg'} className="w-5 h-5"/>
+              ) : null}
+            </Link>
+          ))}
+      </div>
   </div>
 </div>
   )

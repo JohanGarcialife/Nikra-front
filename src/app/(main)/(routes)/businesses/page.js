@@ -4,23 +4,16 @@ import React, { useState, useEffect, useRef } from 'react'
 import Business from './_components/Business'
 import useAuthStore from '@/store/auth'
 
-const TEMPLATE = {
-  img: '/Commerces/CopiadeCarolzapatos.jpg',
-  title: 'Charol Zapatos',
-  description: 'Tu tienda Multimarca en Ceuta, para ellas y ellos las mejores marcas en el sector del calzado. Conoce nuestros establecimientos donde nuestro equipo de profesionales te atenderá de manera individual, profesional y cercana... Porque llevamos un largo recorrido caminando con nuestros clientes.',
-  phone: '956514406',
-  address: 'Paseo del Revellín, 9',
-  website: 'www.Ejemplo.com',
-  hours: 'Mañana: 10:00 - 14:00 Tardes: 16:00 - 20:00'
-}
+import comercios from '@/test/comercios.json'
 
-// data de ejemplo 'infinita' (clones con índice para diferenciar)
-const ALL_BUSINESSES = Array.from({ length: 200 }, (_, i) => ({ ...TEMPLATE, title: `${TEMPLATE.title} ${i + 1}` }))
+
+
+
+const PER_PAGE = 10
 
 export default function Businesses() {
      const { user, logout } = useAuthStore();
-  const PER_PAGE = 10
-  const [items, setItems] = useState(ALL_BUSINESSES.slice(0, PER_PAGE))
+  const [items, setItems] = useState(comercios.slice(0, PER_PAGE))
   const [loading, setLoading] = useState(false)
   const sentinelRef = useRef(null)
 
@@ -31,7 +24,7 @@ export default function Businesses() {
     setTimeout(() => {
       setItems(prev => {
         const start = prev.length
-        const next = ALL_BUSINESSES.slice(start, start + PER_PAGE)
+        const next = comercios.slice(start, start + PER_PAGE)
         return [...prev, ...next]
       })
       setLoading(false)
@@ -57,7 +50,7 @@ export default function Businesses() {
   // Si la página no tiene suficiente contenido para hacer scroll, forzamos más cargas
   useEffect(() => {
     const tryFillUntilScrollable = () => {
-      if (document.documentElement.scrollHeight <= window.innerHeight && items.length < ALL_BUSINESSES.length && !loading) {
+      if (document.documentElement.scrollHeight <= window.innerHeight && items.length < comercios.length && !loading) {
         loadMore()
       }
     }
