@@ -61,7 +61,7 @@ export default function MainMenuBar(props) {
    <div  className="flex flex-col items-center justify-center flex-1">
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
       
-      
+      <Link href={"/businesses"}>
       <Image
       width={30}
       height={30}
@@ -83,6 +83,7 @@ export default function MainMenuBar(props) {
       >
         Comercios
       </span>
+      </Link>
     </div>
 
 </div>
