@@ -22,7 +22,7 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className='w-full max-w-full min-h-screen flex flex-col items-center justify-start box-border  m-0 p-0'>
       <h1 className="text-center self-center font-sans font-bold text-xl text-[#133D74] mt-3">
         Hola, Regístrate para comenzar
       </h1>
@@ -33,74 +33,74 @@ export default function Register() {
         onSubmit={handleRegister}
       >
         <Form>
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Nombre completo
           </label>
           <Field 
             id="name"
             name="name"
             type="text" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="Paquita Martin" 
           />
           <ErrorMessage name="name" component="div" className="text-red-500" />
 
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Documento nacional de identidad
           </label>
           <Field 
             id="dni"
             name="dni"
             type="text" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="00000000Y" 
           />
           <ErrorMessage name="dni" component="div" className="text-red-500" />
 
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Teléfono
           </label>
           <Field 
             id="phone"
             name="phone"
             type="text" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="345256789" 
           />
           <ErrorMessage name="phone" component="div" className="text-red-500" />
 
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Correo electrónico
           </label>
           <Field 
             id="email" 
             name="email"
             type="email" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="ejemplo@gmail.com" 
           />
           <ErrorMessage name="email" component="div" className="text-red-500" />
 
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Contraseña
           </label>
           <Field 
             id="password"
             name="password"
             type="password" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="Contraseña" 
           />
           <ErrorMessage name="password" component="div" className="text-red-500" />
 
-          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-lg block px-2 mt-3">
+          <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Repetir contraseña
           </label>
           <Field 
             id="confirmPassword"
             name="confirmPassword"
             type="password" 
-            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
+            className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="Contraseña" 
           />
           <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
@@ -125,7 +125,7 @@ export default function Register() {
           <Link href="/">
             <button 
               type="submit"
-              className="mt-8 mb-2 w-full h-[60px] font-sans font-medium text-lg bg-[url('/button1(1).svg')] bg-center bg-no-repeat bg-cover border-none rounded-2xl cursor-pointer transition duration-300 relative" 
+              className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7] border-none rounded-2xl cursor-pointer transition duration-300 relative" 
             >
               <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none ">
                 Registrate

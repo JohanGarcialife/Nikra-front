@@ -9,36 +9,82 @@ export default function MainMenuBar(props) {
     
   return (
     <div 
-  className="flex justify-between items-center w-full  h-[90px] bg-white rounded-xl border border-[#133D74] p-[20px] px-9 shadow-lg s my-5 mx-autoz-10"
+  className="flex justify-between items-center w-full  h-full bg-white rounded-xl  py-2 px-3  shadow-lg s my-5 mx-autoz-10"
 >
   {/* .box: flex, justify-between, items-center, max-w-[450px], h-[90px], bg-white, border custom, padding custom, shadow, centrado, z-index */}
-  {images.map((img, index) => (
-    <div key={index} className="flex flex-col items-center justify-center flex-1">
+ 
+    <div  className="flex flex-col items-center justify-center flex-1">
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
-      <Link href={img.route ? img.route : "#"} >
+      
       
       <Image
-      width={40}
-      height={40}
-        key={index}
-        src={img.src}
-        alt={img.alt}
-        className="w-10 h-10 object-contain"
+      width={30}
+      height={30}
+        
+        src={"/Vector(4).svg"}
+        alt={"menu"}
+      
         
        
-        style={{ cursor: img.onClick ? "pointer" : "default" }}
+        
       />
-      </Link>
+      
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
         /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
        
-        style={{ cursor: img.onClick ? "pointer" : "default" }}
+        
       >
-        {img.foot}
+        Bases
       </span>
     </div>
-  ))}
+
+    <div  className="flex flex-col items-center justify-center flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+      
+
+      <div className='absolute '>
+
+      <Image
+      width={82}
+      height={82}
+        src={"/bi_qr-code-scan.png"}
+        alt={"menu"}
+        className='w-32 h-32 object-cover'
+      />
+      </div>
+     
+     
+      
+    </div>
+
+   <div  className="flex flex-col items-center justify-center flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+      
+      
+      <Image
+      width={30}
+      height={30}
+        
+        src={"/Vector(3).svg"}
+        alt={"menu"}
+      
+        
+       
+        
+      />
+      
+      
+      <span 
+        className="text-xs font-bold text-[#133D74] mt-1" 
+        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
+       
+        
+      >
+        Comercios
+      </span>
+    </div>
+
 </div>
   )
 }

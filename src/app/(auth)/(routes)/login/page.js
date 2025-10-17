@@ -16,7 +16,8 @@ export default function Login() {
   const users = {
     'cc@confeceuta.es': 'ta2TYs7zG@',
     'administracion@ceutaciudaddecompras.es': '@U3Hs99%M8',
-    'secretario.general@confeceuta.es': 'dEX$emt6tj'
+    'secretario.general@confeceuta.es': 'dEX$emt6tj',
+    'johan@mail.com':'1234'
   };
 
   const validationSchema = Yup.object({
@@ -36,11 +37,11 @@ export default function Login() {
   };
 
   return (
-    <div className='w-full max-w-full flex flex-col items-center justify-start box-border overflow-hidden m-0 p-0'>
+    <div className='w-full max-w-full flex flex-col items-center min-h-screen justify-start box-border  m-0 p-0'>
       <Image 
         src={`/Logo_Intro.svg`} 
-        width={260}
-        height={172}
+        width={160}
+        height={72}
         alt="Error cargando"
       /> 
 
@@ -82,7 +83,7 @@ export default function Login() {
 
           <button 
             type="submit"
-            className="mt-8 mb-2 w-full h-[60px] font-sans font-medium text-lg bg-[url('/button1(1).svg')] bg-center bg-no-repeat bg-cover border-none rounded-2xl cursor-pointer transition duration-300 relative" 
+            className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7]  border-none rounded-2xl cursor-pointer transition duration-300 relative" 
           >
             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none">
               Accede
