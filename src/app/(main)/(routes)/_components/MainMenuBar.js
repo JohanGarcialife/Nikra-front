@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 export default function MainMenuBar(props) {
     const {images} = props
     const [showModal, setShowModal] = useState(false)
+    const [pdfLoadError, setPdfLoadError] = useState(false)
 
 
     
@@ -14,9 +15,11 @@ export default function MainMenuBar(props) {
     <div 
   className="grid grid-cols-3 w-full  h-full bg-white rounded-xl  py-2 px-3  shadow s my-5 "
 >
-  {/* El contenido de la barra de menú sigue igual... */}
+  {/* .box: flex, justify-between, items-center, max-w-[450px], h-[90px], bg-white, border custom, padding custom, shadow, centrado, z-index */}
  
     <div onClick={() => setShowModal(true)}  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+      
       
       <Image
       width={30}
@@ -24,17 +27,26 @@ export default function MainMenuBar(props) {
         
         src={"/Vector(4).svg"}
         alt={"menu"}
+      
+        
+       
+        
       />
       
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
+        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
+       
+        
       >
         Bases
       </span>
     </div>
 
     <div  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
       
+
       <div className='absolute '>
 
       <Image
@@ -52,6 +64,7 @@ export default function MainMenuBar(props) {
 
       <Link href={"/businesses"}>
    <div  className="flex flex-col  items-center justify-center text-[#133D74] flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
       
       <Image
       width={30}
@@ -68,6 +81,7 @@ export default function MainMenuBar(props) {
       
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
+        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
        
         
       >
@@ -78,15 +92,42 @@ export default function MainMenuBar(props) {
 
 </div>
 {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 bg-opacity-50">
-          <div className="bg-white rounded-lg p-4 max-w-3xl w-full">
-            <div className="flex justify-end">
-              <button onClick={() => setShowModal(false)} className="text-black text-2xl font-bold">
-                X
-              </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-lg p-4 max-w-3xl w-full max-h-[90vh] overflow-auto">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <button onClick={() => setShowModal(false)} className="text-black px-3 py-1 rounded-md bg-gray-100">
+                  Cerrar
+                </button>
+              </div>
+              <div className="flex gap-2">
+                <a
+                  href="/bases_sorteo.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-600 underline"
+                >
+                  Abrir en nueva pestaña
+                </a>
+              </div>
             </div>
-            {/* 🎯 ¡ESTE ES EL CAMBIO CLAVE! 🎯 */}
-            <embed src="/bases_sorteo.pdf" type="application/pdf" width="100%" height="600px" />
+
+            <div className="w-full h-[70vh] sm:h-[80vh] md:h-[85vh]">
+              {!pdfLoadError ? (
+                <iframe
+                  src="/bases_sorteo.pdf"
+                  title="Bases sorteo"
+                  className="w-full h-full border-none"
+                  onLoad={() => setPdfLoadError(false)}
+                  onError={() => setPdfLoadError(true)}
+                />
+              ) : (
+                <div className="p-4 text-center">
+                  <p className="mb-2">No fue posible cargar el PDF en este visor.</p>
+                  <a href="/bases_sorteo.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
