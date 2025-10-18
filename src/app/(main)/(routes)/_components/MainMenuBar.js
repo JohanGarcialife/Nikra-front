@@ -1,21 +1,22 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function MainMenuBar(props) {
     const {images} = props
+    const [showModal, setShowModal] = useState(false)
 
 
     
   return (
+    <>
     <div 
-  className="flex justify-between items-center w-full  h-full bg-white rounded-xl  py-2 px-3  shadow-lg s my-5 mx-autoz-10"
+  className="grid grid-cols-3 w-full  h-full bg-white rounded-xl  py-2 px-3  shadow s my-5 "
 >
-  {/* .box: flex, justify-between, items-center, max-w-[450px], h-[90px], bg-white, border custom, padding custom, shadow, centrado, z-index */}
+  {/* El contenido de la barra de menú sigue igual... */}
  
-    <div  className="flex flex-col items-center justify-center flex-1">
-      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
-      
+    <div onClick={() => setShowModal(true)}  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
       
       <Image
       width={30}
@@ -23,26 +24,17 @@ export default function MainMenuBar(props) {
         
         src={"/Vector(4).svg"}
         alt={"menu"}
-      
-        
-       
-        
       />
       
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
-        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
-       
-        
       >
         Bases
       </span>
     </div>
 
-    <div  className="flex flex-col items-center justify-center flex-1">
-      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+    <div  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
       
-
       <div className='absolute '>
 
       <Image
@@ -58,10 +50,9 @@ export default function MainMenuBar(props) {
       
     </div>
 
-   <div  className="flex flex-col items-center justify-center flex-1">
-      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
-      
       <Link href={"/businesses"}>
+   <div  className="flex flex-col  items-center justify-center text-[#133D74] flex-1">
+      
       <Image
       width={30}
       height={30}
@@ -77,15 +68,28 @@ export default function MainMenuBar(props) {
       
       <span 
         className="text-xs font-bold text-[#133D74] mt-1" 
-        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
        
         
       >
         Comercios
       </span>
-      </Link>
     </div>
+      </Link>
 
 </div>
+{showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 bg-opacity-50">
+          <div className="bg-white rounded-lg p-4 max-w-3xl w-full">
+            <div className="flex justify-end">
+              <button onClick={() => setShowModal(false)} className="text-black text-2xl font-bold">
+                X
+              </button>
+            </div>
+            {/* 🎯 ¡ESTE ES EL CAMBIO CLAVE! 🎯 */}
+            <embed src="/bases_sorteo.pdf" type="application/pdf" width="100%" height="600px" />
+          </div>
+        </div>
+      )}
+</>
   )
 }

@@ -107,10 +107,10 @@ export default function Login() {
         </div>
         <Image 
           className="mt-5 max-w-[150px] w-full block mx-auto" 
-          src="/Logo_de_la_Consejería_de_Empleo,_Empresa_y_Trabajo_Autónomo_de_la_Junta_de_Andalucía-1.png" 
+          src="/Logos_inferior_Login.png" 
           alt="Logo Junta de la Consejería de Empleo" 
-          width={150} 
-          height={120} 
+          width={250} 
+          height={220} 
         />
       </div>
     </div>

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
+
 
 
 
@@ -67,9 +69,9 @@ export default function Business(props) {
           business.rrss_url.split(' | ').map((url, index) => (
             <Link key={index} href={url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2.5 items-center">
               {url.includes('facebook') ? (
-                <img src={'/facebook.svg'} className="w-5 h-5"/>
+                <FaFacebook style={{ color: '#133D74' }} className="w-5 h-5" />
               ) : url.includes('instagram') ? (
-                <img src={'/instagram.svg'} className="w-5 h-5"/>
+                <FaInstagram style={{ color: '#133D74' }} className="w-5 h-5" />
               ) : null}
             </Link>
           ))}
