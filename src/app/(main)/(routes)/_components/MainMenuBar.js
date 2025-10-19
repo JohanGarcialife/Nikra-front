@@ -96,7 +96,7 @@ export default function MainMenuBar(props) {
           <div className="bg-white rounded-lg p-4 max-w-3xl w-full max-h-[90vh] overflow-auto">
             <div className="flex items-center justify-between mb-2">
               <div>
-                <button onClick={() => setShowModal(false)} className="text-black px-3 py-1 rounded-md bg-gray-100">
+                <button onClick={() => setShowModal(false)} className="text-white px-3 py-1 rounded-md bg-red-400">
                   Cerrar
                 </button>
               </div>
