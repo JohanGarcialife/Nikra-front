@@ -1,10 +1,12 @@
 'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export default function Register() {
+  const [showModal, setShowModal] = useState(false);
+  const [pdfLoadError, setPdfLoadError] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string().required('Required'),
@@ -106,19 +108,18 @@ export default function Register() {
           <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
 
           <div className="font-sans font-medium text-[12px] mr-[30px] mt-3 flex gap-[10px] justify-between items-center">
-            <div >
+            <div>
               <div className="pt-2.5 font-light text-[#133D74]">
                 He leído y acepto las:
               </div>
-              <Link href="/politicas">
-                <span 
+              <span 
+                  onClick={() => setShowModal(true)}
                   className="font-sans font-bold text-[12px] text-[#133D74] underline cursor-pointer"
                 >
                   Politicas de uso de la aplicación
                 </span>
-              </Link>
             </div>
-            <div className="font-sans font-light text-[12px] bg-[#3E6FA7] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer">
+            <div onClick={() => setShowModal(true)} className="font-sans font-light text-[12px] bg-[#3E6FA7] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer">
               <p className="p-0 m-0">Acepto</p> 
             </div>
           </div>
@@ -134,6 +135,47 @@ export default function Register() {
           </Link>
         </Form>
       </Formik>
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-lg p-4 max-w-3xl w-full max-h-[90vh] overflow-auto">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <button onClick={() => setShowModal(false)} className="text-white px-3 py-1 rounded-md bg-red-400">
+                  Cerrar
+                </button>
+              </div>
+              <div className="flex gap-2">
+                <a
+                  href="/terminos_y_condiciones.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-600 underline"
+                >
+                  Abrir en nueva pestaña
+                </a>
+              </div>
+            </div>
+
+            <div className="w-full h-[70vh] sm:h-[80vh] md:h-[85vh]">
+              {!pdfLoadError ? (
+                <iframe
+                  src="/terminos_y_condiciones.pdf"
+                  title="Terminos y Condiciones"
+                  className="w-full h-full border-none"
+                  onLoad={() => setPdfLoadError(false)}
+                  onError={() => setPdfLoadError(true)}
+                />
+              ) : (
+                <div className="p-4 text-center">
+                  <p className="mb-2">No fue posible cargar el PDF en este visor.</p>
+                  <a href="/terminos_y_condiciones.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-center items-center m-0 gap-0.5 text-[#133D74] text-sm font-sans font-medium text-center">
         <Link href="/login">

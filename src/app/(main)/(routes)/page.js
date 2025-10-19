@@ -15,7 +15,7 @@ export default function Home() {
   };
 
   return (
-      <div className="aboslute z-20 min-h-screen">
+      <div className="absolute z-20 min-h-screen">
     <div className="font-sans  items-center justify-items-center min-h-screen p-2 pb-20  sm:py-20 relative">
       <div className="flex flex-row items-center  gap-1 mb-10">
 <div onClick={handleLogout} className=" bg-[#133D74] p-3 shadow rounded text-white">

@@ -10,17 +10,18 @@ export default function Business(props) {
   const { business } = props;
   return (
     <div 
-  className="relative w-full bg-white my-5 border-t-4 border-b-4 border-[#133D74] border-x-0 flex flex-col items-center overflow-hidden rounded-lg transition duration-200 ease-in-out hover:-translate-y-0.5"
+  className="relative w-full bg-white shadow-xl my-5 border-t-4 border-b-4 border-[#133D74] border-x-0 flex flex-col items-center overflow-hidden rounded-lg transition duration-200 ease-in-out hover:-translate-y-0.5"
 >
   {/* .box: w-[350px], bg-white/30, bordes personalizados, flex-col, rounded-lg (8px), transición y hover effect (transform: translateY(-2px) -> -translate-y-0.5) */}
   
   {/* Imagen: contenedor con altura fija */}
-  <div className="relative w-full h-[150px] bg-white/0">
+  <div className="relative w-full h-[150px] bg-white">
     <Image 
       src={`/comercios/${business.imagen}`} 
       fill
       alt={business.nombre || "Imagen comercio"} 
       className="object-cover w-full h-full"
+      
     />
   </div>
   {/* .imgCommerce: h-[150px] fijo, object-cover para ocupar todo el ancho y la altura */}
