@@ -4,15 +4,25 @@ import { useRouter } from "next/navigation";
 import BoxCampaing from "./_components/BoxCampaing";
 import MainMenuBar from "./_components/MainMenuBar";
 import Image from "next/image";
+import axios from "axios";
 
 export default function Home() {
   const { user, logout } = useAuthStore();
   const router = useRouter();
 
-  const handleLogout = () => {
-    logout();
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+      if (apiUrl) {
+        await axios.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true });
+      }
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      logout();
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      router.push("/login");
+    }
   };
 
   return (
