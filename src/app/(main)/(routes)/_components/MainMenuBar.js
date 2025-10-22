@@ -46,8 +46,8 @@ export default function MainMenuBar(props) {
     <div  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
       
-
-      <div className='absolute '>
+      <div className='absolute ≈'>
+<Link href={"/contacto"}> 
 <div className='bg-yellow-500 !shadow-2xl rounded-full p-5 flex items-center justify-center '>
 
       <Image
@@ -57,6 +57,7 @@ export default function MainMenuBar(props) {
         alt={"menu"}
       />
 </div>  
+</Link>
       </div>
      
      
@@ -125,7 +126,7 @@ export default function MainMenuBar(props) {
               ) : (
                 <div className="p-4 text-center">
                   <p className="mb-2">No fue posible cargar el PDF en este visor.</p>
-                  <a href="/bases_sorteo.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
+                  <a href="/BASES_LEGALES_SORTEO_“COMPRA,_CONECTA_Y_GANA_MANZANA”_–_EDICIÓN.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
                 </div>
               )}
             </div>
