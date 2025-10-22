@@ -3,6 +3,7 @@ import useAuthStore from "../../../store/auth";
 import { useRouter } from "next/navigation";
 import BoxCampaing from "./_components/BoxCampaing";
 import MainMenuBar from "./_components/MainMenuBar";
+import Image from "next/image";
 
 export default function Home() {
   const { user, logout } = useAuthStore();
@@ -17,12 +18,23 @@ export default function Home() {
   return (
       <div className="absolute z-20 min-h-screen">
     <div className="font-sans  items-center justify-items-center min-h-screen p-2 pb-20  sm:py-20 relative">
-      <div className="flex flex-row items-center  gap-1 mb-10">
+      
+      
+      <div className="flex flex-row w-full justify-between items-center  gap-1 mb-10">
 <div onClick={handleLogout} className=" bg-[#133D74] p-3 shadow rounded text-white">
        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
         </div>
-<h2 className="text-[#133D74] font-bold text-xl w-full text-center">Centro Comercial Abierto de Ceuta</h2>
+{/* <h2 className="text-[#133D74] font-bold text-xl w-full text-center">Centro Comercial Abierto de Ceuta</h2> */}
+ <Image
+  width={162}
+  height={243}
+    src="/CCA-800X600-(2).png"
+    alt="Logo" 
+  />
+  <div />
       </div>
+
+
       <BoxCampaing src={"/Image.png"}/>
      <div className="mt-10 w-full">
        <MainMenuBar images={[

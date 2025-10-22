@@ -25,7 +25,7 @@ export default function MainMenuBar(props) {
       width={30}
       height={30}
         
-        src={"/Vector(4).svg"}
+        src={"/icono-legal.svg"}
         alt={"menu"}
       
         
@@ -48,14 +48,15 @@ export default function MainMenuBar(props) {
       
 
       <div className='absolute '>
+<div className='bg-yellow-500 !shadow-2xl rounded-full p-5 flex items-center justify-center '>
 
       <Image
-      width={82}
-      height={82}
-        src={"/bi_qr-code-scan.png"}
+      width={50}
+      height={50}
+        src={"/icono-registrar.svg"}
         alt={"menu"}
-        className='w-32 h-32 object-cover'
       />
+</div>  
       </div>
      
      
@@ -70,7 +71,7 @@ export default function MainMenuBar(props) {
       width={30}
       height={30}
         
-        src={"/Vector(3).svg"}
+        src={"/icono-comercios.svg"}
         alt={"menu"}
       
         

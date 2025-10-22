@@ -3,13 +3,18 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [pdfLoadError, setPdfLoadError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Required'),
+    fullName: Yup.string().required('Required'),
     dni: Yup.string().required('Required'),
     phone: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
@@ -19,8 +24,64 @@ export default function Register() {
       .required('Required'),
   });
 
-  const handleRegister = (values) => {
-    console.log(values);
+  const handleRegister = async (values, { setSubmitting } = {}) => {
+    setSubmitting?.(true);
+    setLoading(true);
+    setSubmitError(null);
+
+    const apiBaseRaw = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiBaseRaw) {
+      setSubmitError('La URL de la API no está definida. Revisa .env');
+      setLoading(false);
+      setSubmitting?.(false);
+      return;
+    }
+    const apiBase = apiBaseRaw.replace(/\/$/, ''); // remove trailing slash
+
+
+    const payload = {
+      fullName: values.fullName,
+      dni: values.dni,
+      phone: values.phone,
+      email: values.email,
+      password: values.password,
+    };
+
+    const endpoints = ['/auth/register']; // prueba primer endpoint y usa fallback
+    let lastError = null;
+
+    for (const ep of endpoints) {
+      try {
+        const url = `${apiBase}${ep}`;
+        const response = await axios.post(url, payload, {
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          timeout: 10000,
+        });
+
+        console.log('Register response:', response.data);
+        router.push('/login');
+        return;
+      } catch (error) {
+        lastError = error;
+        console.warn(`Intento fallido a ${apiBase}${ep}:`, error?.response?.status || error?.message);
+
+        // Si es un error 4xx, no tiene sentido intentar otro endpoint
+        const status = error?.response?.status;
+        if (status && status >= 400 && status < 500) {
+          break;
+        }
+        // si 5xx o error de red, continuará al siguiente endpoint (fallback)
+      }
+    }
+
+    console.error('Register error final:', lastError);
+    setSubmitError(
+      lastError?.response?.data?.message ||
+      lastError?.message ||
+      'Error al registrar. Verifica que la API esté disponible.'
+    );
+    setLoading(false);
+    setSubmitting?.(false);
   };
 
   return (
@@ -30,7 +91,7 @@ export default function Register() {
       </h1>
 
       <Formik
-        initialValues={{ name: '', dni: '', phone: '', email: '', password: '', confirmPassword: '' }}
+        initialValues={{ fullName: '', dni: '', phone: '', email: '', password: ''}}
         validationSchema={validationSchema}
         onSubmit={handleRegister}
       >
@@ -39,13 +100,13 @@ export default function Register() {
             Nombre completo
           </label>
           <Field 
-            id="name"
-            name="name"
+            id="fullName"
+            name="fullName"
             type="text" 
             className="rounded-2xl bg-[#d3d3d3] text-[rgba(54,69,79)] w-full py-2 px-4 font-sans text-base border-none outline-none leading-5 box-border placeholder:text-[rgba(54,69,79,0.5)] [&:-internal-autofill-selected]:!bg-[#d3d3d3]" 
             placeholder="Paquita Martin" 
           />
-          <ErrorMessage name="name" component="div" className="text-red-500" />
+          <ErrorMessage name="fullName" component="div" className="text-red-500" />
 
           <label className="text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block px-2 mt-3">
             Documento nacional de identidad
@@ -123,16 +184,23 @@ export default function Register() {
               <p className="p-0 m-0">Acepto</p> 
             </div>
           </div>
-          <Link href="/">
+         
             <button 
               type="submit"
-              className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7] border-none rounded-2xl cursor-pointer transition duration-300 relative" 
+              disabled={loading}
+              className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7] border-none rounded-2xl cursor-pointer transition duration-300 relative disabled:opacity-60" 
             >
               <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none ">
-                Registrate
+                {loading ? 'Registrando...' : 'Registrate'}
               </span>
             </button>
-          </Link>
+
+            {submitError && (
+              <div className="text-red-500 text-center mt-2">
+                {submitError}
+              </div>
+            )}
+         
         </Form>
       </Formik>
 

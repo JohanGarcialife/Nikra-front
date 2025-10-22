@@ -7,32 +7,55 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import useAuthStore from '@/store/auth';
+import axios from 'axios';
 
 export default function Login() {
-  const [error, setError] = useState('');
+  const [submitError, setSubmitError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const login = useAuthStore((state) => state.login);
-
-  const users = {
-    'cc@confeceuta.es': 'ta2TYs7zG@',
-    'administracion@ceutaciudaddecompras.es': '@U3Hs99%M8',
-    'secretario.general@confeceuta.es': 'dEX$emt6tj',
-    'johan@mail.com':'1234'
-  };
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
     password: Yup.string().required('Required'),
   });
 
-  const handleLogin = (values) => {
-    if (users[values.email] === values.password) {
-      const user = { email: values.email };
+  const handleLogin = async (values, { setSubmitting } = {}) => {
+    setSubmitting?.(true);
+    setLoading(true);
+    setSubmitError('');
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/login`;
+      const response = await axios.post(
+        url,
+        { email: values.email, password: values.password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      // Asumimos que el backend devuelve { token, user } o similar
+      const token = response?.data?.token || response?.data?.accessToken || null;
+      const user = response?.data?.user || { email: values.email };
+
+      if (token) {
+        document.cookie = `token=${encodeURIComponent(token)}; path=/`;
+      } else {
+        // fallback mínimo si no hay token
+        document.cookie = `token=${encodeURIComponent(values.email)}; path=/`;
+      }
+
       login(user);
-      document.cookie = `token=${encodeURIComponent(values.email)}; path=/`;
       router.push('/');
-    } else {
-      setError('Correo o contraseña incorrectos');
+    } catch (error) {
+      console.error('Login error:', error);
+      setSubmitError(
+        error?.response?.data?.message ||
+        error?.message ||
+        'Error al iniciar sesión. Intenta de nuevo.'
+      );
+    } finally {
+      setLoading(false);
+      setSubmitting?.(false);
     }
   };
 
@@ -49,7 +72,7 @@ export default function Login() {
         Iniciar Sesión
       </h1>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {submitError && <p className="text-red-500">{submitError}</p>}
 
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -83,10 +106,11 @@ export default function Login() {
 
           <button 
             type="submit"
-            className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7]  border-none rounded-2xl cursor-pointer transition duration-300 relative" 
+            disabled={loading}
+            className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7]  border-none rounded-2xl cursor-pointer transition duration-300 relative disabled:opacity-60" 
           >
             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none">
-              Accede
+              {loading ? 'Ingresando...' : 'Accede'}
             </span>
           </button>
         </Form>
