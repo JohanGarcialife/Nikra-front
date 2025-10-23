@@ -4,17 +4,45 @@ import { useRouter } from "next/navigation";
 import BoxCampaing from "./_components/BoxCampaing";
 import MainMenuBar from "./_components/MainMenuBar";
 import Image from "next/image";
-import axios from "axios";
+import apiClient from "@/lib/axios";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { user, logout } = useAuthStore();
   const router = useRouter();
 
+  const [campaigns, setCampaigns] = useState([]);
+  const [loadingCampaigns, setLoadingCampaigns] = useState(false);
+  const [campaignsError, setCampaignsError] = useState(null);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      setLoadingCampaigns(true);
+      setCampaignsError(null);
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+        if (!apiUrl) throw new Error("NEXT_PUBLIC_API_URL no está configurada");
+                const res = await apiClient.get(`${apiUrl}/api/campaigns`);
+        setCampaigns(res.data);
+      } catch (err) {
+        console.error("Error fetching campaigns:", err);
+        setCampaignsError(err);
+      } finally {
+        setLoadingCampaigns(false);
+      }
+    };
+
+    fetchCampaigns();
+  }, []);
+
+  console.log('user', user);
+  
+
   const handleLogout = async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
       if (apiUrl) {
-        await axios.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true });
+        await apiClient.post(`${apiUrl}/auth/logout`, {});
       }
     } catch (err) {
       console.error('Logout error:', err);
@@ -45,7 +73,7 @@ export default function Home() {
       </div>
 
 
-      <BoxCampaing src={"/Image.png"}/>
+      <BoxCampaing src={"/Image.png"} campaigns={campaigns}/>
      <div className="mt-10 w-full">
        <MainMenuBar images={[
         {src: "/Vector(4).svg", alt: "Error", foot: "bases", route: "/contacto"},
@@ -53,6 +81,9 @@ export default function Home() {
         {src: "/Vector(3).svg", alt: "Error", foot: "Comercios", route: "/businesses"},
         ]}/>
       </div>
+
+      {loadingCampaigns && <div className="mt-4 text-sm text-gray-500">Cargando campañas...</div>}
+      {campaignsError && <div className="mt-4 text-sm text-red-500">Error al cargar campañas.</div>}
      
       </div>
  

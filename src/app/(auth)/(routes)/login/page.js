@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import useAuthStore from '@/store/auth';
-import axios from 'axios';
+import apiClient from '@/lib/axios';
 
 export default function Login() {
   const [submitError, setSubmitError] = useState('');
@@ -27,7 +27,7 @@ export default function Login() {
 
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`;
-      const response = await axios.post(
+      const response = await apiClient.post(
         url,
         { email: values.email, password: values.password },
         { headers: { 'Content-Type': 'application/json' } }
