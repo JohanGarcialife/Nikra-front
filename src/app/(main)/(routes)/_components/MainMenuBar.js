@@ -47,7 +47,7 @@ export default function MainMenuBar(props) {
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
       
       <div className='absolute ≈'>
-<Link href={"/contacto"}> 
+<Link href={"/register-qr"}> 
 <div className='bg-yellow-500 !shadow-2xl rounded-full p-5 flex items-center justify-center '>
 
       <Image

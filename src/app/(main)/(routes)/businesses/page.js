@@ -6,6 +6,7 @@ import useAuthStore from '@/store/auth'
 
 import comercios from '@/test/comercios.json'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 
 
@@ -66,20 +67,22 @@ export default function Businesses() {
     }
   }, [items, loading]) // se reintenta hasta que haya scroll o se agoten los items
 
-const handleLogout = () => {
-    logout();
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    router.push("/login");
-  };
+
 
   return (
     <div>
-        <div className="flex flex-row items-center  gap-1 mb-10">
-<div onClick={() => router.back()} className=" bg-[#133D74] p-3 shadow rounded text-white">
-       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
-        </div>
-<h2 className="text-[#133D74] font-bold text-xl w-full text-center">Centro Comercial Abierto de Ceuta</h2>
-      </div>
+        <div className="flex flex-row w-full justify-between items-center  gap-1 mb-10">
+             <div onClick={() => router.back()}className=" bg-[#133D74] p-3 shadow rounded text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
+               </div>
+       <Image
+         width={162}
+         height={243}
+           src="/CCA-800X600-(2).png"
+           alt="Logo" 
+         />
+         <div />
+           </div>
       {items.map((business, index) => (
         <Business key={index} business={business} />
       ))}

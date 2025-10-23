@@ -47,7 +47,7 @@ export default function Register() {
       password: values.password,
     };
 
-    const endpoints = ['/auth/register']; // prueba primer endpoint y usa fallback
+    const endpoints = ['/api/auth/register']; // prueba primer endpoint y usa fallback
     let lastError = null;
 
     for (const ep of endpoints) {
