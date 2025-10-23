@@ -26,6 +26,7 @@ export default function ParallaxLayout({ children }) {
   return (
     <>
       <Image
+      alt='Background'
         src={"/Group786.png"}
         fill
         className="fixed top-0 left-0 w-full h-full z-10 object-cover"

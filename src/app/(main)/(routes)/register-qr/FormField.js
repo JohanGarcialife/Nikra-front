@@ -12,9 +12,9 @@ export default function FormField({
   const inputClasses = "rounded-lg shadow-lg bg-white/80 text-[rgba(54,69,79)] w-full py-3 px-4 font-sans text-base border-primary border outline-none leading-5 box-border mb-2";
   const selectClasses = "rounded-lg shadow-lg bg-white/80 text-[rgba(54,69,79)] w-full py-3 px-4 pr-10 font-sans text-base border-primary border outline-none leading-5 box-border mb-2 appearance-none";
   const placeholderClasses = type !== 'date' ? 'placeholder:text-[rgba(54,69,79,0.5)]' : '';
-  const labelClasses = "text-primary my-0 mx-0 mb-2 font-sans font-medium text-base block mt-6 first:mt-0";
+  const labelClasses = "text-[#133D74] my-0 mx-0 mb-2 font-sans font-medium text-base block mt-6 first:mt-0";
 
-  return (
+  return ( 
     <div className="mb-4">
       <label htmlFor={name} className={labelClasses}>
         {label}
