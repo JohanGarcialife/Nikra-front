@@ -19,8 +19,13 @@ export default function Businesses() {
   const [loading, setLoading] = useState(false)
   const sentinelRef = useRef(null)
 
-console.log(businesses);
+  const loadingRef = useRef(loading)
+  useEffect(() => { loadingRef.current = loading }, [loading])
 
+  const allItemsRef = useRef(allItems)
+  useEffect(() => { allItemsRef.current = allItems }, [allItems])
+
+  console.log(businesses);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || '' // usa la URL desde .env (NEXT_PUBLIC_API_URL)
   // Fetch inicial de /api/associates usando la URL del .env, incluyendo token desde cookies en Authorization header
@@ -66,14 +71,18 @@ console.log(businesses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // solo al montar
 
+  // loadMore usa refs para leer estado actual y setState funcional para evitar dependencias innecesarias
   const loadMore = () => {
-    if (loading) return
+    if (loadingRef.current) return
+    // si ya cargamos todo, no hacer nada
+    if (businesses.length >= allItemsRef.current.length) return
+
     setLoading(true)
-    // simulamos fetch con timeout; si quieres puedes reemplazar por paginado real en backend
+    // simulamos latencia; se puede reemplazar por paginado real
     setTimeout(() => {
-      setItems(prev => {
+      setBusinesses(prev => {
         const start = prev.length
-        const next = allItems.slice(start, start + PER_PAGE)
+        const next = allItemsRef.current.slice(start, start + PER_PAGE)
         return [...prev, ...next]
       })
       setLoading(false)
@@ -94,12 +103,13 @@ console.log(businesses);
     obs.observe(el)
     return () => obs.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // se monta una vez; loadMore usa setState funcional para evitar dependencias
+  }, []) // se monta una vez; loadMore usa refs para evitar dependencias
 
   // Si la página no tiene suficiente contenido para hacer scroll, forzamos más cargas
   useEffect(() => {
     const tryFillUntilScrollable = () => {
-      if (document.documentElement.scrollHeight <= window.innerHeight && items.length < allItems.length && !loading) {
+      if (typeof window === 'undefined') return
+      if (document.documentElement.scrollHeight <= window.innerHeight && businesses.length < allItems.length && !loading) {
         loadMore()
       }
     }
@@ -115,7 +125,7 @@ console.log(businesses);
     <div>
       <div className="flex flex-row w-full justify-between items-center  gap-1 mb-10">
         <div onClick={() => router.back()} className=" bg-[#133D74] p-3 shadow rounded text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
         </div>
         <Image
           width={162}
