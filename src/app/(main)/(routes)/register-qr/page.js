@@ -1,21 +1,46 @@
 'use client'
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormField from './FormField';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
+import apiClient from '@/lib/axios';
 
 export default function RegisterQR() {
   const [successMessage, setSuccessMessage] = useState('');
-  const router = useRouter()
-  // Lista de comercios (esto debería venir de una API)
-  const comercios = [
-    { id: 1, name: 'Carol Zapatos' },
-    { id: 2, name: 'Comercio 2' },
-    { id: 3, name: 'Comercio 3' },
-    { id: 4, name: 'Comercio 4' },
-  ];
+  const [errorMessage, setErrorMessage] = useState('');
+  const [comercios, setComercios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  // Obtener lista de comercios del API
+  useEffect(() => {
+    const fetchComercios = async () => {
+      try {
+        const response = await apiClient.get('/api/associates', {
+          params: {
+            limit: 1000,
+            activo: true
+          }
+        });
+        
+        // Transformar los datos para el select
+        const comerciosData = response.data.associates.map(associate => ({
+          id: associate.id,
+          name: associate.nombre
+        }));
+        
+        setComercios(comerciosData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener comercios:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchComercios();
+  }, []);
 
   const validationSchema = Yup.object({
     comercio: Yup.string().required('Selecciona un comercio'),
@@ -27,21 +52,42 @@ export default function RegisterQR() {
       .min(0.01, 'El importe debe ser mayor a 0'),
   });
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    // Aquí iría la lógica para enviar al backend
-    console.log('Registro de participación:', values);
-    
-    // Simular envío exitoso
-    setTimeout(() => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      // Limpiar mensajes previos
+      setSuccessMessage('');
+      setErrorMessage('');
+      
+      // Mapear los campos del formulario a los nombres que espera el backend
+      const participationData = {
+        associateId: values.comercio,
+        numeroTicket: values.ticketNumber,
+        fechaTicket: values.ticketDate,
+        importeTotal: parseFloat(values.totalAmount)
+      };
+
+      // Enviar al backend
+      await apiClient.post('/api/participations', participationData);
+      
+      // Mostrar mensaje de éxito
       setSuccessMessage('¡Participación registrada exitosamente!');
-      setSubmitting(false);
       
       // Resetear formulario después de 2 segundos
       setTimeout(() => {
         resetForm();
         setSuccessMessage('');
       }, 2000);
-    }, 1000);
+      
+    } catch (error) {
+      console.error('Error al registrar participación:', error);
+      
+      // Mostrar mensaje de error
+      const errorMsg = error.response?.data?.message || 'Error al registrar la participación. Intenta nuevamente.';
+      setErrorMessage(errorMsg);
+      
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,25 +120,36 @@ export default function RegisterQR() {
             </div>
           )}
 
-          <Formik
-            initialValues={{
-              comercio: '',
-              ticketNumber: '',
-              ticketDate: '',
-              totalAmount: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ isSubmitting }) => (
-              <Form className="w-full ">
-                <FormField
-                  label="Listado de Comercios:"
-                  name="comercio"
-                  as="select"
-                  placeholder="Selecciona un comercio"
-                  options={comercios}
-                />
+          {errorMessage && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center">
+              {errorMessage}
+            </div>
+          )}
+
+          {loading ? (
+            <div className="text-center py-8">
+              <p className="text-gray-600">Cargando comercios...</p>
+            </div>
+          ) : (
+            <Formik
+              initialValues={{
+                comercio: '',
+                ticketNumber: '',
+                ticketDate: '',
+                totalAmount: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form className="w-full ">
+                  <FormField
+                    label="Listado de Comercios:"
+                    name="comercio"
+                    as="select"
+                    placeholder="Selecciona un comercio"
+                    options={comercios}
+                  />
 
                 <FormField
                   label="Nº de ticket de compra:"
@@ -110,9 +167,9 @@ export default function RegisterQR() {
             <FormField
                   label="Importe total:"
                   name="totalAmount"
-                  type="number"
-                  step="0.01"
+                  type="text"
                   placeholder="0.00"
+                  isAmount={true}
                 />
                 </div>
                 {/* Botón de envío */}
@@ -131,6 +188,7 @@ export default function RegisterQR() {
               </Form>
             )}
           </Formik>
+          )}
         </div>
       </div>
     </div>
