@@ -3,6 +3,9 @@ import React from 'react'
 
 export default function BoxCampaing(props) {
     const { src, alt = "Campaing Image" } = props;
+
+    console.log(src);
+    
    
     
   return (

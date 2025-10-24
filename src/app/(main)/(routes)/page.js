@@ -37,7 +37,7 @@ export default function Home() {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
         if (!apiUrl) throw new Error("NEXT_PUBLIC_API_URL no está configurada");
-        const res = await apiClient.get(`${apiUrl}/api/campaigns`);
+        const res = await apiClient.get(`${apiUrl}/api/campaigns/active`);
         const data = Array.isArray(res.data) ? res.data : []
         setAllCampaigns(data);
         setCampaigns(data.slice(0, PER_PAGE));
@@ -125,7 +125,7 @@ export default function Home() {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
       if (apiUrl) {
-        await apiClient.post(`${apiUrl}/auth/logout`, {});
+        await apiClient.post(`${apiUrl}/api/auth/logout`, {});
       }
     } catch (err) {
       console.error('Logout error:', err);
@@ -160,10 +160,9 @@ export default function Home() {
           <div
             ref={scrollContainerRef}
             id="campaign-scroll"
-            className="overflow-auto"
+            className="overflow-auto min-h-[800px] "
             style={{ paddingBottom: 120, msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
-             <BoxCampaing src={"/Image.png"} campaigns={campaigns}/>
              <div className="mt-10 w-full">
                {/* MainMenuBar dejado fuera del scroll (ver abajo) */}
              </div>
@@ -171,11 +170,9 @@ export default function Home() {
              {/* Lista de campañas (visible, paginada) */}
              <div className="mt-4 space-y-4 px-2">
                {campaigns.map((camp, idx) => (
-                 <div key={camp.id ?? idx} className="p-4 border rounded bg-white shadow-sm">
-                   {/* render básico: adaptar según BoxCampaing o diseño */}
-                   <h3 className="font-semibold text-base">{camp.title || camp.name || `Campaña ${idx + 1}`}</h3>
-                   {camp.description && <p className="text-sm text-gray-600 mt-1">{camp.description}</p>}
-                 </div>
+             <BoxCampaing  key={camp.id ?? idx} src={`${process.env.NEXT_PUBLIC_API_URL}/api/upload/campaign/${camp.imagenUrl}`} campaigns={campaigns}/>
+                
+                
                ))}
                {/* sentinel para scroll infinito */}
                <div ref={sentinelRef} style={{ height: 1 }} />

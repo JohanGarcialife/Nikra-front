@@ -1,5 +1,6 @@
 import { Montserrat } from "next/font/google";
 import "../globals.css";
+import { Toaster } from "sonner";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} antialiased`}
       >
+        <Toaster richColors position="top"/>
         <div
           className={
             // mobile-first: full-width, no radius, no shadow

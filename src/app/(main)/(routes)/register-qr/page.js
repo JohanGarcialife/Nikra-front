@@ -76,7 +76,7 @@ export default function RegisterQR() {
       setTimeout(() => {
         resetForm();
         setSuccessMessage('');
-      }, 2000);
+      }, 5000);
       
     } catch (error) {
       console.error('Error al registrar participación:', error);

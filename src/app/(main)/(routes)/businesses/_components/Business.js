@@ -59,10 +59,16 @@ export default function Business(props) {
     </div>
     
     <div className="flex flex-row gap-2.5">
+     { business.web_url === "https://nan" ? null :
+     <div className='flex flex-row items-center gap-2.5'>
       <img src={'fluent-mdl2_website(1).svg'} className="w-5 h-5"/>
+     <Link href={business.web_url} target="_blank">
       <span className="text-[#133D74] text-xs font-bold">
         { business.web_url }
       </span>
+     </Link>
+     </div>
+      }
     </div>
     
       <div className="flex flex-row gap-2.5 mb-5">

@@ -25,7 +25,7 @@ export default function Businesses() {
   const allItemsRef = useRef(allItems)
   useEffect(() => { allItemsRef.current = allItems }, [allItems])
 
-  console.log(businesses);
+
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || '' // usa la URL desde .env (NEXT_PUBLIC_API_URL)
   // Fetch inicial de /api/associates usando la URL del .env, incluyendo token desde cookies en Authorization header
