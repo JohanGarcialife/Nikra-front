@@ -128,11 +128,11 @@ export default function Businesses() {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
         </div>
         <Image
-          width={162}
-          height={243}
-          src="/CCA-800X600-(2).png"
-          alt="Logo"
-        />
+                       width={120}
+                       height={180}
+                       src={`/CCA-APP.png`} 
+                       alt="Logo"
+                     />
         <div />
       </div>
 

@@ -97,12 +97,12 @@ export default function RegisterQR() {
       <div onClick={() => router.back()}className=" bg-[#133D74] p-3 shadow rounded text-white">
        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>
         </div>
-<Image
-  width={162}
-  height={243}
-    src="/CCA-800X600-(2).png"
-    alt="Logo" 
-  />
+ <Image
+                width={120}
+                height={180}
+                src={`/CCA-APP.png`} 
+                alt="Logo"
+              />
   <div />
     </div>
 

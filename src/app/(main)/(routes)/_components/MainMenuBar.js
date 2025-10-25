@@ -126,7 +126,7 @@ export default function MainMenuBar(props) {
               ) : (
                 <div className="p-4 text-center">
                   <p className="mb-2">No fue posible cargar el PDF en este visor.</p>
-                  <a href="/BASES_LEGALES_SORTEO_“COMPRA,_CONECTA_Y_GANA_MANZANA”_–_EDICIÓN.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
+                  <a href="/BASES_LEGALES_REGISTRO_“COMPRA,_CONECTA_Y_GANA_MANZANA_–_EDICIÓN.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
                 </div>
               )}
             </div>

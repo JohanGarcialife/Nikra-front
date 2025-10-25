@@ -62,7 +62,7 @@ export default function Login() {
   return (
     <div className='w-full max-w-full flex flex-col items-center min-h-screen justify-start box-border  m-0 p-0'>
       <Image 
-        src={`/Logo_Intro.svg`} 
+        src={`/CCA-APP.png`} 
         width={160}
         height={72}
         alt="Error cargando"

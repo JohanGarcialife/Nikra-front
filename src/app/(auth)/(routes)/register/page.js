@@ -13,6 +13,7 @@ export default function Register() {
   const [pdfLoadError, setPdfLoadError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required('Required'),
@@ -185,14 +186,14 @@ export default function Register() {
                     Politicas de uso de la aplicación
                   </span>
               </div>
-              <div onClick={() => setShowModal(true)} className="font-sans font-light text-[12px] bg-[#3E6FA7] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer">
-                <p className="p-0 m-0">Acepto</p> 
+              <div onClick={() => setAcceptedTerms(prev => !prev)} className={`font-sans font-light text-[12px] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer ${acceptedTerms ? 'bg-green-500' : 'bg-[#3E6FA7]'}`}>
+                <p className="p-0 m-0">{ acceptedTerms ? 'Aceptado' : 'Acepto' }</p> 
               </div>
             </div>
            
               <button 
                 type="submit"
-                disabled={!isValid || !dirty || loading}
+                disabled={!isValid || !dirty || loading || !acceptedTerms}
                 className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7] border-none rounded-2xl cursor-pointer transition duration-300 relative disabled:opacity-60" 
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none ">
