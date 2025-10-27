@@ -8,8 +8,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-   title: "Nikra App",
-  description: "Nikra App Website",
+   title: "CCA Ceuta App",
+  description: "CCA Ceuta App para comercios asociados",
 };
 
 export default function RootLayout({ children }) {

@@ -10,8 +10,10 @@ import { useEffect, useRef, useState } from "react";
 const PER_PAGE = 10
 
 export default function Home() {
-  const { user, logout } = useAuthStore();
+ const { user, login, logout } = useAuthStore();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
 
   // paginación / scroll infinito
   const [allCampaigns, setAllCampaigns] = useState([]) // datos completos
@@ -119,7 +121,6 @@ export default function Home() {
     return () => window.removeEventListener('resize', updateMaxHeight)
   }, [])
 
-  console.log('campaigns (visible)', campaigns);
 
   const handleLogout = async () => {
     try {
@@ -135,6 +136,35 @@ export default function Home() {
       router.push("/login");
     }
   };
+
+   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        // Asumimos que el backend tiene un endpoint para obtener el perfil del usuario
+                const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`;
+        const response = await apiClient.get(url);
+        
+        if (response.data) {
+          login(response.data); // Re-hidrata el store con los datos del usuario
+        } else {
+          throw new Error("No user data received");
+        }
+      } catch (error) {
+        console.error("Session validation failed:", error);
+        logout(); // Limpia el store de Zustand
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Limpia la cookie
+        router.push("/login"); // Redirige al login
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (!user) {
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [user, login, logout, router]);
 
   return (
       <div className="absolute z-20 min-h-screen">

@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Business from './_components/Business'
 import useAuthStore from '@/store/auth'
-
-import comercios from '@/test/comercios.json'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -14,8 +12,8 @@ export default function Businesses() {
   const { user, logout } = useAuthStore();
   const router = useRouter()
 
-  const [allItems, setAllItems] = useState(comercios) // datos completos (fallback desde JSON)
-  const [businesses, setBusinesses] = useState(() => comercios.slice(0, PER_PAGE)) // items visibles (paginados)
+  const [businesses, setBusinesses] = useState([]) // items visibles (paginados)
+  const [allItems, setAllItems] = useState([]) // datos completos (fallback desde JSON)
   const [loading, setLoading] = useState(false)
   const sentinelRef = useRef(null)
 
@@ -40,7 +38,7 @@ export default function Businesses() {
 
     const fetchAssociates = async () => {
       try {
-        const url = API_URL ? `${API_URL.replace(/\/$/, '')}/api/associates` : '/api/associates'
+        const url = `${API_URL}/api/associates`
 
         // intentamos obtener token desde cookies o desde el user del store como fallback
         const token =
@@ -58,9 +56,12 @@ export default function Businesses() {
           return
         }
         const data = await res.json()
-        if (mounted && Array.isArray(data)) {
-          setAllItems(data)
-          setBusinesses(data.slice(0, PER_PAGE))
+        console.log(data);
+        
+        const associates = data.associates || data;
+        if (mounted && Array.isArray(associates)) {
+          setAllItems(associates)
+          setBusinesses(associates.slice(0, PER_PAGE))
         }
       } catch (err) {
         console.warn('Fetch associates failed:', err)
