@@ -12,7 +12,7 @@ export default function Business(props) {
   useEffect(() => {
     let objectUrl;
     if (business.imagen) {
-      apiClient.get(`/upload/associate/${business.imagen}`, { responseType: 'blob' })
+      apiClient.get(`/api/upload/associate/${business.imagen}`, { responseType: 'blob' })
         .then(response => {
           objectUrl = URL.createObjectURL(response.data);
           setImageUrl(objectUrl);
