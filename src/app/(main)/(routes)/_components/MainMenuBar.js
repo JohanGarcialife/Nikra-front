@@ -17,7 +17,31 @@ export default function MainMenuBar(props) {
 >
   {/* .box: flex, justify-between, items-center, max-w-[450px], h-[90px], bg-white, border custom, padding custom, shadow, centrado, z-index */}
  
-  
+    <div onClick={() => setShowModal(true)}  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
+      {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
+      
+      
+      <Image
+      width={30}
+      height={30}
+        
+        src={"/icono-legal.svg"}
+        alt={"menu"}
+      
+        
+       
+        
+      />
+      
+      <span 
+        className="text-xs font-bold text-[#133D74] mt-1" 
+        /* .imagefoot: text-xs (12px), font-bold, color custom, mt-1 (4px) */
+       
+        
+      >
+        Bases
+      </span>
+    </div>
 
     <div  className="flex  flex-col items-center justify-center text-[#133D74] flex-1">
       {/* .item: flex-col, centrado, flex-1 (distribuye el espacio) */}
