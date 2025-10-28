@@ -117,9 +117,11 @@ export default function Login() {
       </Formik>
 
       <div className="flex justify-center items-center m-0 gap-0.5 text-[#133D74] text-sm font-sans font-medium text-center">
-        <span className="font-semibold cursor-pointer underline whitespace-nowrap" onClick={() => {alert("hola")}}>
+       <Link href="/forgotPassword" >
+        <span className="font-semibold cursor-pointer underline whitespace-nowrap" >
           Olvidaste tu contraseña?
         </span>
+       </Link>
       </div>
 
       <div className="pt-[18px] border-t border-[#D9D9D9] mt-7 max-w-[300px]"> 
