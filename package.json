@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroui/input-otp": "^2.1.27",
+    "@heroui/react": "^2.8.5",
+    "@heroui/system": "^2.4.23",
+    "@heroui/theme": "^2.4.23",
     "axios": "^1.12.2",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.24",

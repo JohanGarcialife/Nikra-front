@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 
-export default function FirstStep() {
+export default function FirstStep(props) {
+    const {setActiveStep} = props
   return (
-    <div>        <p className='text-base mb-12 text-[#133D74]'>
+    <div>        <p className='text-base mt-24 mb-12 text-[#133D74]'>
 ¿Has olvidado tu contraseña?
 </p>
 <p className='text-base text-[#133D74]'>
@@ -19,7 +20,7 @@ export default function FirstStep() {
             placeholder="Ingresa tu correo email" 
           />
 </div>
-<button className='w-full mt-28 border border-[#133D74] text-[#133D74]  py-3 rounded-lg font-sans font-medium text-base'>
+<button onClick={() => setActiveStep(1)} className='w-full mt-28 border border-[#133D74] text-[#133D74]  py-3 rounded-lg font-sans font-medium text-base'>
     Enviar código
 </button>
 <div className='w-full flex justify-center items-center mt-56 '>
@@ -30,6 +31,7 @@ export default function FirstStep() {
     </span>
     </p>
 </Link>
-</div></div>
+</div>
+</div>
   )
 }
