@@ -131,7 +131,7 @@ export default function Businesses() {
         <Image
                        width={120}
                        height={180}
-                       src={`/CCA-APP.png`} 
+                       src={`/CCA-800X600-(2).png`} 
                        alt="Logo"
                      />
         <div />

@@ -1,12 +1,13 @@
 'use client'
 import Link from 'next/link';
 import React from 'react';
+import axios from 'axios';
 import { InputOtp } from "@heroui/input-otp";
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export default function SecondStep(props) {
-  const {setActiveStep} = props;
+  const {setActiveStep, setCode} = props;
 
   const validationSchema = Yup.object({
     otp: Yup.string()
@@ -14,11 +15,29 @@ export default function SecondStep(props) {
       .matches(/^\d{4}$/, 'El código debe tener 4 dígitos'),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
+    
     setSubmitting(true);
-    // verificar OTP con backend si es necesario
-    setActiveStep(2);
-    setSubmitting(false);
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/validate-reset-code/${values.otp}`;
+      console.log(url);
+      
+      const res = await axios.get(url);
+      console.log(res);
+      if (res.status === 200) {
+        // código válido
+        setCode(values.otp)
+        setActiveStep(2);
+      } else {
+        setFieldError('otp', 'Código inválido');
+      }
+    } catch (error) {
+      // manejar error (ej. 4xx/5xx o fallo de red)
+      setFieldError('otp', 'Código inválido');
+      console.error('validate-reset-code error:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

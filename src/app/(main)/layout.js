@@ -1,4 +1,3 @@
-
 import { Montserrat } from "next/font/google";
 import "../globals.css";
 import ParallaxLayout from "./_components/ParallaxLayout";

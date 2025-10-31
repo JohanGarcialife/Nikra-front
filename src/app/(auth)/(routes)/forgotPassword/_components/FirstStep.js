@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 export default function FirstStep(props) {
     const {setActiveStep} = props
@@ -13,9 +14,18 @@ export default function FirstStep(props) {
 
     const handleSubmit = async (values, { setSubmitting }) => {
       setSubmitting(true);
-      // aquí podrías enviar el correo al backend si hace falta
-      setActiveStep(1);
-      setSubmitting(false);
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`;
+        await axios.post(url, { email: values.email });
+        // Si la petición es exitosa avanzamos al siguiente paso
+        setActiveStep(1);
+      } catch (error) {
+        console.error('Forgot password error:', error);
+        const msg = error?.response?.data?.message || 'Error al enviar el correo';
+        alert(msg);
+      } finally {
+        setSubmitting(false);
+      }
     };
 
   return (

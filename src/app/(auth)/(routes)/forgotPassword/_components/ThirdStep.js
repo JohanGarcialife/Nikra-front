@@ -1,10 +1,12 @@
 'use client'
 import React from 'react'
+import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export default function ThirdStep(props) {
-    const {setActiveStep} = props
+    const {setActiveStep, code} = props
+console.log(code);
 
     const validationSchema = Yup.object({
       password: Yup.string().required('Requerido').min(6, 'Mínimo 6 caracteres'),
@@ -13,14 +15,26 @@ export default function ThirdStep(props) {
         .required('Requerido'),
     });
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
       setSubmitting(true);
-      // enviar nueva contraseña al backend si procede
-      setActiveStep(3);
-      setSubmitting(false);
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/reset-password`;
+        const res = await axios.post(url, { password: values.password, code: code });
+        if (res.status === 200 || res.status === 201) {
+          setActiveStep(3);
+        } else {
+          setFieldError('password', 'No se pudo cambiar la contraseña');
+        }
+      } catch (error) {
+        const msg = error?.response?.data?.message || 'Error al cambiar la contraseña';
+        setFieldError('password', msg);
+        console.error('reset-password error:', error);
+      } finally {
+        setSubmitting(false);
+      }
     };
 
-  return (
+  return ( 
     <div>
       <div className='flex justify-start items-center gap-2 text-[#133D74]'>
         <svg onClick={() => setActiveStep(0)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-compact-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20l-3 -8l3 -8" /></svg>

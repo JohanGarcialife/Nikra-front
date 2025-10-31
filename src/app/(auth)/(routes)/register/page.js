@@ -14,6 +14,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [isAdult, setIsAdult] = useState(false);
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required('Required'),
@@ -60,12 +61,12 @@ export default function Register() {
           timeout: 10000,
         });
 
-        console.log('Register response:', response.data);
-        toast.success('¡Registro exitoso!');
-        setTimeout(() => {
-          router.push('/login');
-        }, 2000);
-        return;
+    
+          toast.success('¡Registro exitoso!', { duration: 8000 });
+          setTimeout(() => {
+            router.push('/login');
+          }, 2000);
+          return;
       } catch (error) {
         lastError = error;
         console.warn(`Intento fallido a ${apiBase}${ep}:`, error?.response?.status || error?.message);
@@ -186,14 +187,24 @@ export default function Register() {
                     Politicas de uso de la aplicación
                   </span>
               </div>
-              <div onClick={() => setAcceptedTerms(prev => !prev)} className={`font-sans font-light text-[12px] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer ${acceptedTerms ? 'bg-green-500' : 'bg-[#3E6FA7]'}`}>
+              <div onClick={() => setAcceptedTerms(prev => !prev)} className={`font-sans font-light text-[12px] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer ${acceptedTerms ? 'bg-green-500' : 'bg-red-500 animate-pulse'}`}>
                 <p className="p-0 m-0">{ acceptedTerms ? 'Aceptado' : 'Acepto' }</p> 
               </div>
             </div>
+
+           {/* Nuevo control: Confirmo que soy mayor de edad */}
+           <div className="font-sans font-medium text-[12px] mr-[30px] mt-3 flex gap-[10px] justify-between items-center">
+             <div className="pt-2.5  text-[#133D74]">
+               Confirmo que soy mayor de edad.
+             </div>
+             <div onClick={() => setIsAdult(prev => !prev)} className={`font-sans font-light text-[12px] text-white rounded-full py-1 px-[25px]  text-center cursor-pointer ${isAdult ? 'bg-green-500' : 'bg-red-500 animate-pulse'}`}>
+               <p className="p-0 m-0">{ isAdult ? 'Confirmado' : 'Confirmo' }</p> 
+             </div>
+          </div>
            
               <button 
                 type="submit"
-                disabled={!isValid || !dirty || loading || !acceptedTerms}
+                disabled={!isValid || !dirty || loading || !acceptedTerms || !isAdult}
                 className="mt-5 mb-2 w-full h-full font-sans p-5 font-medium text-lg bg-[#3E6FA7] border-none rounded-2xl cursor-pointer transition duration-300 relative disabled:opacity-60" 
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-bold text-white pointer-events-none ">

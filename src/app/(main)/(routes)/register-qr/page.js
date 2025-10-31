@@ -6,6 +6,7 @@ import FormField from './FormField';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 import apiClient from '@/lib/axios';
+import { toast } from 'sonner'; // <-- añadido
 
 export default function RegisterQR() {
   const [successMessage, setSuccessMessage] = useState('');
@@ -69,10 +70,14 @@ export default function RegisterQR() {
       // Enviar al backend
       await apiClient.post('/api/participations', participationData);
       
-      // Mostrar mensaje de éxito
-      setSuccessMessage('¡Participación registrada exitosamente!');
-      
-      // Resetear formulario después de 2 segundos
+      // Mensaje de éxito
+      const msg = '¡Participación registrada exitosamente!';
+      setSuccessMessage(msg);
+
+      // Mostrar toast de sonner con el successMessage
+      toast.success(msg);
+
+      // Resetear formulario después de 5 segundos
       setTimeout(() => {
         resetForm();
         setSuccessMessage('');
@@ -100,7 +105,7 @@ export default function RegisterQR() {
  <Image
                 width={120}
                 height={180}
-                src={`/CCA-APP.png`} 
+               src={`/CCA-800X600-(2).png`} 
                 alt="Logo"
               />
   <div />
