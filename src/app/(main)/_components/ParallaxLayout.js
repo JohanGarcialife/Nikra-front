@@ -1,6 +1,6 @@
-'use client'
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function ParallaxLayout({ children }) {
   const [scrollTop, setScrollTop] = useState(0);
@@ -26,7 +26,7 @@ export default function ParallaxLayout({ children }) {
   return (
     <>
       <Image
-      alt='Background'
+        alt="Background"
         src={"/Group786.png"}
         fill
         className="fixed top-0 left-0 w-full h-full z-10 object-cover"
@@ -39,9 +39,7 @@ export default function ParallaxLayout({ children }) {
           "lg:max-w-screen lg:mx-auto lg:my-[15px] lg:rounded-[30px] lg:min-h-[calc(100vh-30px)] lg:p-5 lg:shadow-[0_0_36px_rgba(0,0,0,0.07)]"
         }
       >
-        <div className="relative z-20 flex flex-col w-full">
-          {children}
-        </div>
+        <div className="relative z-20 flex flex-col w-full">{children}</div>
       </div>
     </>
   );
