@@ -133,7 +133,7 @@ export default function Login() {
         </div>
         <Image 
           className="mt-5 max-w-[150px] w-full block mx-auto" 
-     src={`/CCA-800X600-(2).png`} 
+     src={`/Logos_inferior_Login.png`} 
           alt="Logo Junta de la Consejería de Empleo" 
           width={250} 
           height={220} 
