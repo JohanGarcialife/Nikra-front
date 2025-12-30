@@ -104,7 +104,7 @@ export default function MainMenuBar(props) {
               </div>
               <div className="flex gap-2">
                 <a
-                  href="/BASES_LEGALES_REGISTRO_“COMPRA,_CONECTA_Y_GANA_MANZANA_–_EDICIÓN-(NUEVA).pdf"
+                  href="/BASES_LEGALES_Estas_Navidades_COMPRA_EN_CEUTA_y_consigue_esta_FANTÁSTICA.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 underline"
@@ -112,12 +112,12 @@ export default function MainMenuBar(props) {
                   Abrir en nueva pestaña
                 </a>
               </div>
-            </div>
+            </div> 
 
             <div className="w-full h-[70vh] sm:h-[80vh] md:h-[85vh]">
               {!pdfLoadError ? (
                 <iframe
-                  src="/BASES_LEGALES_REGISTRO_“COMPRA,_CONECTA_Y_GANA_MANZANA_–_EDICIÓN-(NUEVA).pdf"
+                  src="/BASES_LEGALES_Estas_Navidades_COMPRA_EN_CEUTA_y_consigue_esta_FANTÁSTICA.pdf"
                   title="Bases sorteo"
                   className="w-full h-full border-none"
                   onLoad={() => setPdfLoadError(false)}
@@ -126,7 +126,7 @@ export default function MainMenuBar(props) {
               ) : (
                 <div className="p-4 text-center">
                   <p className="mb-2">No fue posible cargar el PDF en este visor.</p>
-                  <a href="/BASES_LEGALES_REGISTRO_“COMPRA,_CONECTA_Y_GANA_MANZANA_–_EDICIÓN-(NUEVA).pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
+                  <a href="/BASES_LEGALES_Estas_Navidades_COMPRA_EN_CEUTA_y_consigue_esta_FANTÁSTICA.pdf" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Descargar / Abrir PDF</a>
                 </div>
               )}
             </div>
